@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ton-analyzer
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python main.py"
+    envVars:
+      - key: BOT_TOKEN
+        value: "7298026834:AAEwedBFU0yS5gFTHeAbKaJozb1ZZ_4JVNI"
+      - key: CHAT_ID
+        value: "@Zh_zhhch"
