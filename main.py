@@ -72,6 +72,7 @@ def send_to_telegram(message):
 
 # تسک تکرارشونده
 def run_bot():
+    send_to_telegram("🚀 ربات تحلیلگر TON شروع به کار کرد!")
     while True:
         try:
             prices = {pair: fetch_price(pair) for pair in PAIR_LIST}
@@ -86,7 +87,7 @@ def run_bot():
 @app.before_request
 def start_background_thread():
     if not hasattr(app, 'thread_started'):
-        threading.Thread(target=background_loop, daemon=True).start()
+        threading.Thread(target=run_bot, daemon=True).start()  # اینجا تغییر کرد
         app.thread_started = True
 
 # پاسخ به درخواست وب‌سرویس (برای اطمینان از فعال بودن)
