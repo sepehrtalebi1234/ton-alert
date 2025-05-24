@@ -83,10 +83,11 @@ def run_bot():
         time.sleep(900)  # هر ۱۵ دقیقه
 
 # اجرای ربات در ترد جدا
-@app.before_first_request
-def activate_job():
-    thread = threading.Thread(target=run_bot)
-    thread.start()
+@app.before_request
+def start_background_thread():
+    if not hasattr(app, 'thread_started'):
+        threading.Thread(target=background_loop, daemon=True).start()
+        app.thread_started = True
 
 # پاسخ به درخواست وب‌سرویس (برای اطمینان از فعال بودن)
 @app.route('/')
